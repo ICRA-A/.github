@@ -1,0 +1,28 @@
+name: Enforce Branches
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  enforce-branches:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Ensure Production-Main branch exists
+      run: |
+        if ! git show-ref --verify --quiet refs/heads/Production-Main; then
+          git checkout -b Production-Main
+          git push origin Production-Main
+        fi
+
+    - name: Ensure Development-Main branch exists
+      run: |
+        if ! git show-ref --verify --quiet refs/heads/Development-Main; then
+          git checkout -b Development-Main
+          git push origin Development-Main
+        fi
