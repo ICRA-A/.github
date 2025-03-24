@@ -1,5 +1,6 @@
 name: Enforce Branches
-
+env:
+  GITHUB_TOKEN: ${{ secrets.MY_GITHUB_SECRET }}
 on:
   push:
     branches:
